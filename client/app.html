@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Germany Home Price Prediction</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="app.js"></script>
+	<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="img"></div>
+<form class="form">
+	<h2>Lot</h2>
+    <input class="area"  type="text" id="uiLot" class="floatLabel" name="Squareft">
+	<h2>Bathrooms</h2>
+    <input class="area"  type="text" id="uiBathrooms" class="floatLabel" name="Squareft" >
+	<h2>Floors</h2>
+    <input class="area"  type="text" id="uiFloors" class="floatLabel" name="Squareft" >
+	<h2>Garages</h2>
+    <input class="area"  type="text" id="uiGarages" class="floatLabel" name="Squareft" >
+	<h2>rooms</h2>
+    <input class="area"  type="text" id="uirooms" class="floatLabel" name="Squareft">
+	</form>
+		<h2>State</h2>
+	<div>
+  <select class="State" name="" id="uiState">
+    <option value="" disabled="disabled" selected="selected">Choose a State</option>
+		<option>Baden-Württemberg</option>
+        <option>Rheinland-Pfalz</option>
+		<option>Hessen</option>
+        <option>Bayern</option>
+		<option>Berlin</option>
+        <option>Brandenburg</option>
+		<option>Bremen</option>
+        <option>Niedersachsen</option>
+		<option>Hamburg</option>
+        <option>Nordrhein-Westfalen</option>
+		<option>Mecklenburg-Vorpommern</option>
+        <option>Saarland</option>
+		<option>Sachsen</option>
+        <option>Sachsen-Anhalt</option>
+		<option>Schleswig-Holstein</option>
+        <option>Thüringen</option>
+  </select>
+</div>
+
+		<h2>Type</h2>
+	<div>
+  <select class="Type" name="" id="uiType">
+    <option value="" disabled="disabled" selected="selected">Choose a Type</option>
+		<option>Multiple dwelling</option>
+        <option>Mid-terrace house</option>
+		<option>Farmhouse</option>
+        <option>Duplex</option>
+		<option>Single dwelling</option>
+        <option>Special property</option>
+		<option>Bungalow</option>
+        <option>Villa</option>
+		<option>Corner house</option>
+        <option>Residential property</option>
+		<option>Castle</option>
+  </select>
+</div>
+
+	<button class="submit" onclick="onClickedEstimatePrice()" type="button">Estimate Price</button>
+	<div id="uiEstimatedPrice" class="result">	<h2></h2> </div>
+</body>
+</html>
