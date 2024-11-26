@@ -3,6 +3,11 @@ import util
 
 app = Flask(__name__)
 
+# Define a route for the root URL
+@app.route('/')
+def home():
+    return "Welcome to the Home Price Prediction App!"
+
 @app.route('/get_State_names', methods=['GET'])
 def get_State_names():
     response = jsonify({

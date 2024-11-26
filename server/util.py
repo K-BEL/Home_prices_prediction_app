@@ -37,14 +37,14 @@ def load_saved_artifacts():
     global __state
     global __type
 
-    with open("./model/columns.json", "r") as f:
+    with open(r"C:\Users\k.belhadj\Desktop\Repos\Home_prices_prediction_app\model\columns.json", "r") as f:
         __data_columns = json.load(f)['data_columns']
         __state = __data_columns[3:] 
         __type = __data_columns[3:] 
 
     global __model
     if __model is None:
-        with open('./model/germany_home_prices_model.pickle', 'rb') as f:
+        with open(r'C:\Users\k.belhadj\Desktop\Repos\Home_prices_prediction_app\model\germany_home_prices_model.pickle', 'rb') as f:
             __model = pickle.load(f)
     print("loading saved artifacts...done")
 
