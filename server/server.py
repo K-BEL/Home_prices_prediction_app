@@ -1,49 +1,69 @@
-from flask import Flask, request, jsonify
+from flask_openapi3 import Info, Tag, OpenAPI
+from pydantic import BaseModel
 import util
 
-app = Flask(__name__)
+# Initialize OpenAPI app
+info = Info(title="Home Price Prediction API", version="1.0.0")
+app = OpenAPI(__name__, info=info)
 
-# Define a route for the root URL
-@app.route('/')
+# Define tags for categorizing endpoints
+state_tag = Tag(name="State", description="Endpoints for retrieving state information")
+type_tag = Tag(name="Type", description="Endpoints for retrieving property types")
+prediction_tag = Tag(name="Prediction", description="Endpoints for home price prediction")
+
+# Define Pydantic models for input validation
+class PredictRequest(BaseModel):
+    Lot: float
+    State: str
+    Type: str
+    Bathrooms: int
+    Floors: int
+    Garages: int
+    rooms: int
+
+@app.get("/", summary="Home Page")
 def home():
+    """
+    Welcome to the Home Price Prediction App!
+    """
     return "Welcome to the Home Price Prediction App!"
 
-@app.route('/get_State_names', methods=['GET'])
-def get_State_names():
-    response = jsonify({
-        'state': util.get_State_names()
-    })
-    response.headers.add('Access-Control-Allow-Origin', '*')
+@app.get("/get_State_names", tags=[state_tag], summary="Get State Names")
+def get_state_names():
+    """
+    Retrieve a list of state names.
+    """
+    return {
+        "state": util.get_State_names()
+    }
 
-    return response
+@app.get("/get_Type_names", tags=[type_tag], summary="Get Property Type Names")
+def get_type_names():
+    """
+    Retrieve a list of property type names.
+    """
+    return {
+        "type": util.get_Type_names()
+    }
 
-@app.route('/get_Type_names', methods=['GET'])
-def get_Type_names():
-    response = jsonify({
-        'type': util.get_Type_names()
-    })
-    response.headers.add('Access-Control-Allow-Origin', '*')
+@app.post("/predict_home_price", tags=[prediction_tag], summary="Predict Home Price")
+def predict_home_price(body: PredictRequest):
+    """
+    Predict the home price based on input parameters.
+    """
+    Lot = body.Lot
+    State = body.State
+    Type = body.Type
+    Bathrooms = body.Bathrooms
+    Floors = body.Floors
+    Garages = body.Garages
+    rooms = body.rooms
 
-    return response
-
-@app.route('/predict_home_price', methods=['GET', 'POST'])
-def predict_home_price():
-    Lot = float(request.form['Lot'])
-    State = request.form['State']
-    Type = request.form['Type']
-    Bathrooms = int(request.form['Bathrooms'])
-    Floors = int(request.form['Floors'])
-    Garages = int(request.form['Garages'])
-    rooms = int(request.form['rooms'])
-
-    response = jsonify({
-        'estimated_price': util.get_estimated_price(State,Type, Lot, Bathrooms, Floors, Garages, rooms)
-    })
-    response.headers.add('Access-Control-Allow-Origin', '*')
-
-    return response
+    return {
+        "estimated_price": util.get_estimated_price(State, Type, Lot, Bathrooms, Floors, Garages, rooms)
+    }
 
 if __name__ == "__main__":
     print("Starting Python Flask Server For Home Price Prediction...")
     util.load_saved_artifacts()
-    app.run()
+    app.run(debug=True)
