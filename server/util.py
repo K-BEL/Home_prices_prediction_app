@@ -19,6 +19,7 @@ def get_estimated_price(State,Type, Lot, Bathrooms, Floors, Garages, rooms):
 
     x = np.zeros(len(__data_columns))
     x[0] = Lot
+    
     x[1] = Bathrooms
     x[2] = Floors
     x[3] = Garages
